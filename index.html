@@ -1,180 +1,53 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Monte sua Pizza 🍕</title>
-<style>
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f7ead8;color:#3b2118;min-height:100vh}
-button{font:inherit}
-.app{max-width:520px;margin:auto;min-height:100vh;padding:18px}
-.screen{display:none;min-height:calc(100vh - 36px);align-items:center;justify-content:center}
-.screen.active{display:flex}
-.card{width:100%;background:#fffaf3;border-radius:28px;padding:25px;box-shadow:0 10px 30px #0001;text-align:center}
-h1{font-size:38px;margin:5px 0 8px}
-h2{margin:6px 0 10px}
-p{line-height:1.45}
-.emoji{font-size:75px}
-.primary{border:0;border-radius:18px;padding:15px 22px;background:#b94725;color:white;font-weight:800;width:100%;cursor:pointer}
-.small{font-size:13px;color:#7b6258;margin-top:12px}
-.top{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:10px}
-.badge{background:#fff;border-radius:999px;padding:8px 12px;font-weight:800;box-shadow:0 3px 10px #0001}
-.order{background:#fff;border-radius:18px;padding:13px;text-align:left;margin-bottom:12px}
-.order strong{display:block;margin-bottom:5px}
-.pizza-area{position:relative;width:min(78vw,330px);aspect-ratio:1;margin:15px auto}
-.pizza{position:absolute;inset:0;border-radius:50%;background:#e8b05c;border:14px solid #d78b3e;box-shadow:inset 0 0 0 5px #f3c879,0 8px 15px #0002;overflow:hidden}
-.sauce{position:absolute;inset:18px;border-radius:50%;background:#c94c31}
-.cheese{position:absolute;inset:28px;border-radius:50%;background:#f7cf64}
-.toppings{position:absolute;inset:34px;border-radius:50%}
-.topping{position:absolute;font-size:27px;transform:translate(-50%,-50%);filter:drop-shadow(0 2px 1px #0003)}
-.ingredients{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:12px 0}
-.ing{border:0;background:white;border-radius:16px;padding:10px 5px;box-shadow:0 3px 10px #0001;cursor:pointer}
-.ing span{display:block;font-size:30px}.ing b{font-size:12px}
-.message{min-height:23px;font-weight:700;margin:7px}
-.result-score{font-size:48px;font-weight:900;margin:8px}
-</style>
-</head>
-<body>
-<div class="app">
+:root{--bg:#f7efe4;--ink:#2c211b;--red:#b83b2e;--red2:#8f2c24;--gold:#e7a93b;--green:#53734a;--card:#fffaf3;--shadow:0 10px 30px #0002} *{box-sizing:border-box;-webkit-tap-highlight-color:transparent} body{margin:0;background:radial-gradient(circle at 20% 0,#fff8ed 0 25%,transparent 45%),var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;min-height:100vh}button{font:inherit;cursor:pointer;border:0}#app{max-width:1100px;margin:auto;padding:14px}.top{display:flex;gap:10px;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap}.brand{font-family:Georgia,serif;font-size:clamp(24px,6vw,40px);font-weight:900;color:var(--red2)}.stats{display:flex;gap:8px;flex-wrap:wrap}.pill{background:#fff;border:2px solid #ead8c5;border-radius:999px;padding:8px 12px;font-weight:800}.screen{background:var(--card);border:2px solid #ead8c5;border-radius:24px;box-shadow:var(--shadow);padding:18px;overflow:hidden}.hidden{display:none!important}.center{text-align:center}.hero{padding:25px 10px}.hero h1{font-family:Georgia,serif;font-size:clamp(36px,10vw,70px);margin:8px 0;color:var(--red2)}.hero p{max-width:700px;margin:10px auto 22px;font-size:17px;line-height:1.5}.primary{background:var(--red);color:white;border-radius:14px;padding:13px 18px;font-weight:900;box-shadow:0 5px 0 var(--red2);margin:4px}.secondary{background:#efe2d2;color:var(--ink);border-radius:14px;padding:12px 16px;font-weight:800;margin:4px}.danger{background:#7e2721;color:#fff}.levelgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:15px}.level{background:#fff;border:2px solid #ead8c5;border-radius:18px;padding:16px;text-align:left;min-height:130px}.level.locked{opacity:.48}.level strong{font-size:19px}.level small{display:block;margin-top:7px;line-height:1.4}.game-head{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center}.orderbox{background:#fff;border:2px solid #ead8c5;border-radius:18px;padding:13px}.customer{display:flex;align-items:center;gap:12px}.face{width:64px;height:64px;border-radius:50%;background:#f0c49d;border:4px solid #8f5c43;position:relative;flex:0 0 auto}.face:before,.face:after{content:"";position:absolute;width:7px;height:9px;background:#2c211b;border-radius:50%;top:25px}.face:before{left:17px}.face:after{right:17px}.face .mouth{position:absolute;width:20px;height:9px;border-bottom:3px solid #7d3f31;border-radius:50%;left:18px;top:39px}.face.alt{background:#d79d73}.face.alt2{background:#f1d2b5}.face.hair{box-shadow:inset 0 12px #3b281e}.name{font-weight:950;font-size:20px}.order{margin-top:4px;line-height:1.35}.riddle{font-style:italic;color:#71483a;margin-top:5px}.timer{height:12px;background:#eadfd4;border-radius:99px;overflow:hidden;margin-top:9px}.timer i{display:block;height:100%;width:100%;background:var(--gold);transition:width .1s linear}.work{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:14px;margin-top:14px}.pizza-stage{background:#eadbc7;border-radius:20px;padding:14px;min-height:350px;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative}.pizza{width:min(72vw,330px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,#f3d38d 0 65%,#c7894b 66% 71%,#9b5c31 72%);border:10px solid #d6a461;box-shadow:inset 0 0 0 5px #f0c27b,0 10px 20px #0003;position:relative;overflow:hidden}.sauce{position:absolute;inset:14%;border-radius:50%;background:#b83b2e;box-shadow:inset 0 0 25px #6e211a}.cheese{position:absolute;inset:11%;border-radius:50%;background:radial-gradient(circle,#ffe39a 0 68%,transparent 69%);opacity:.85}.topping{position:absolute;z-index:3;transform:translate(-50%,-50%);filter:drop-shadow(1px 2px 1px #0003)}.pepperoni{width:30px;height:30px;background:#a93625;border:4px solid #7e2119;border-radius:50%}.pepperoni:after{content:"";position:absolute;width:6px;height:6px;border-radius:50%;background:#d86b4f;left:6px;top:5px;box-shadow:8px 8px #d86b4f}.olive{width:25px;height:25px;border:7px solid #283e22;border-radius:50%;background:#b9a45b}.mushroom{width:33px;height:24px;background:#d9c2a2;border:3px solid #795b45;border-radius:22px 22px 9px 9px}.mushroom:after{content:"";position:absolute;width:5px;height:11px;background:#a7815f;left:11px;top:19px;border-radius:4px}.tomato{width:30px;height:22px;background:#d94a35;border:3px solid #9b2c22;border-radius:50% 45% 55% 40%;transform:translate(-50%,-50%) rotate(18deg)}.onion{width:34px;height:22px;border:4px solid #b58ad0;border-radius:50%;background:transparent}.pepper{width:38px;height:10px;background:#4c7e42;border:3px solid #31552b;border-radius:12px;transform:translate(-50%,-50%) rotate(25deg)}.choco{width:42px;height:7px;background:#57301e;border-radius:9px;transform:translate(-50%,-50%) rotate(20deg)}.strawberry{width:26px;height:25px;background:#d94635;border:3px solid #9e2c25;border-radius:50% 50% 55% 55%;transform:translate(-50%,-50%) rotate(35deg)}.strawberry:after{content:"";position:absolute;width:12px;height:7px;background:#4c7e42;left:4px;top:-5px;border-radius:50%}.banana{width:35px;height:16px;border:6px solid #e4bb3e;border-top-color:#f2d85e;border-radius:50%;background:transparent;transform:translate(-50%,-50%) rotate(25deg)}.topping.burn{filter:brightness(.55) drop-shadow(1px 2px 1px #0003)}.halfline{position:absolute;z-index:4;left:50%;top:10%;bottom:10%;width:3px;background:#7b5134;transform:rotate(0deg);opacity:.8}.tools{background:#fff;border:2px solid #ead8c5;border-radius:18px;padding:12px}.tools h3{margin:4px 0 10px}.ingredient-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.ing{min-height:62px;background:#f8eee1;border:2px solid #e4d0ba;border-radius:14px;padding:7px 5px;font-weight:850;color:var(--ink)}.ing.active{outline:3px solid var(--gold);background:#fff4cf}.swatch{height:27px;position:relative;margin:auto auto 3px;width:44px}.swatch.pep{background:#a93625;border:5px solid #7e2119;border-radius:50%}.swatch.ol{border:7px solid #283e22;border-radius:50%;background:#b9a45b}.swatch.mu{background:#d9c2a2;border:3px solid #795b45;border-radius:20px 20px 7px 7px;width:35px}.swatch.to{background:#d94a35;border:3px solid #9b2c22;border-radius:50%}.swatch.on{border:5px solid #b58ad0;border-radius:50%}.swatch.pe{background:#4c7e42;border:3px solid #31552b;border-radius:9px;transform:rotate(18deg)}.swatch.ch{background:#57301e;border-radius:8px;transform:rotate(12deg)}.swatch.st{background:#d94635;border:3px solid #9e2c25;border-radius:50%}.swatch.ba{border:6px solid #e4bb3e;border-top-color:#f2d85e;border-radius:50%}.mode{display:flex;gap:7px;margin:8px 0;flex-wrap:wrap}.mode button{flex:1;min-width:90px;border-radius:12px;padding:9px;background:#eee1d1;font-weight:850}.mode button.sel{background:#53734a;color:#fff}.oven{background:#4a3028;border-radius:20px;padding:16px;color:white;min-height:330px;display:flex;flex-direction:column;align-items:center;justify-content:center}.oven-door{width:min(75vw,300px);height:220px;border:13px solid #211715;border-radius:12px 12px 25px 25px;background:linear-gradient(145deg,#291c1a,#0e0b0b);position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}.oven-window{width:78%;height:68%;border:8px solid #3e2a25;border-radius:10px;background:radial-gradient(circle at 50% 80%,#ef9b2d,#642d1b 40%,#110d0c 75%);position:relative}.oven-window:after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,#fff4 0 8%,transparent 12% 100%)}.mini-pizza{width:100px;height:100px;border-radius:50%;background:#d59b58;border:7px solid #f1c77d;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%)}.flame{position:absolute;bottom:0;left:20%;right:20%;height:32px;background:#f07a28;border-radius:50% 50% 0 0;filter:blur(3px);opacity:.9}.bakebar{width:min(80vw,330px);height:14px;background:#241a18;border-radius:99px;overflow:hidden;margin:12px}.bakebar i{display:block;height:100%;width:0;background:#e7a93b}.shop{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}.decor{background:#fff;border:2px solid #ead8c5;border-radius:18px;padding:14px}.decor .icon{font-size:45px;height:58px;display:grid;place-items:center}.decor button{width:100%;margin-top:8px}.pizzeria{position:relative;min-height:360px;border-radius:20px;overflow:hidden;background:#ead9bd;border:5px solid #8c5a3f}.wall{position:absolute;inset:0 0 32%;background:linear-gradient(#f6e5ca 0 49%,#e7cda9 50%)}.floor{position:absolute;inset:68% 0 0;background:repeating-linear-gradient(90deg,#b9794e 0 34px,#9e623e 35px 68px)}.decor-item{position:absolute;font-size:55px;z-index:4;user-select:none}.sign{position:absolute;top:25px;left:50%;transform:translateX(-50%);background:#fff8dd;border:5px solid #8b4a30;padding:8px 20px;border-radius:12px;font:900 24px Georgia;color:#9d2e26;z-index:3}.results{padding:30px 10px}.stars{font-size:35px;letter-spacing:4px;color:#e7a93b}.toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%) translateY(120px);background:#2b211c;color:white;padding:12px 17px;border-radius:12px;font-weight:800;transition:.25s;z-index:50;max-width:90vw;text-align:center}.toast.show{transform:translateX(-50%) translateY(0)}.tiny{font-size:13px;color:#735c50}.tag{display:inline-block;background:#eee1d1;padding:4px 8px;border-radius:999px;font-size:12px;font-weight:900;margin:2px}.choicegrid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:10px 0}.choice{padding:11px;border:2px solid #ead8c5;background:#fff;border-radius:12px;font-weight:800}.choice.sel{border-color:#53734a;background:#e9f0e5}.summary{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:12px 0}.summary b{background:#fff;border:2px solid #ead8c5;padding:10px 12px;border-radius:12px}.ovenbtn{width:100%;margin-top:10px} @media(max-width:780px){.work{grid-template-columns:1fr}.game-head{grid-template-columns:1fr}.pizza-stage{min-height:310px}.tools{order:2}.game-head .stats{justify-content:flex-start}} 
 
-<section id="home" class="screen active">
-  <div class="card">
-    <div class="emoji">🍕</div>
-    <h1>Monte sua Pizza!</h1>
-    <p>O cliente fez o pedido. Você consegue montar a pizza certinha?</p>
-    <button class="primary" onclick="startGame()">COMEÇAR</button>
-    <div class="small">Jogo demonstrativo — funciona direto no navegador.</div>
-  </div>
-</section>
+🍕 Pizzaria Milão
 
-<section id="game" class="screen">
-  <div style="width:100%">
-    <div class="top">
-      <span class="badge">🍕 Pedido</span>
-      <span class="badge" id="score">0 pts</span>
-    </div>
-    <div class="order">
-      <strong>Cliente:</strong>
-      <span id="customer"></span>
-    </div>
+💰 0⭐ 0
 
-    <div class="pizza-area">
-      <div class="pizza">
-        <div class="sauce"></div>
-        <div class="cheese"></div>
-        <div class="toppings" id="toppings"></div>
-      </div>
-    </div>
+UM JOGO DE PIZZARIA
 
-    <div class="message" id="message">Toque nos ingredientes para montar.</div>
-    <div class="ingredients" id="ingredients"></div>
-    <button class="primary" onclick="deliver()">ENTREGAR PIZZA 🍕</button>
-  </div>
-</section>
+Monte. Asse. Entregue.
 
-<section id="result" class="screen">
-  <div class="card">
-    <div class="emoji" id="resultEmoji">🍕</div>
-    <h2 id="resultTitle"></h2>
-    <div class="result-score" id="finalScore"></div>
-    <p id="resultText"></p>
-    <button class="primary" onclick="startGame()">FAZER OUTRA</button>
-    <div style="height:9px"></div>
-    <button class="primary" style="background:#70483b" onclick="show('home')">VOLTAR</button>
-  </div>
-</section>
+Atenda clientes, decifre pedidos, monte pizzas de sabores inventados, asse no forno fechado e ganhe gorjetas. O dinheiro serve somente para decorar sua pizzaria.
 
-</div>
+Começar a trabalhar Decorar a pizzaria 
 
-<script>
-const ingredients = [
-  {id:"pepperoni", name:"Calabresa", emoji:"🌭"},
-  {id:"mushroom", name:"Cogumelo", emoji:"🍄"},
-  {id:"olive", name:"Azeitona", emoji:"🫒"},
-  {id:"tomato", name:"Tomate", emoji:"🍅"},
-  {id:"onion", name:"Cebola", emoji:"🧅"},
-  {id:"pepper", name:"Pimentão", emoji:"🫑"}
-];
+6 níveis5 clientes por nível15s por clientepedidos especiais
 
-const orders = [
-  {name:"Marina", items:["pepperoni","olive"]},
-  {name:"Pedro", items:["pepperoni","onion","tomato"]},
-  {name:"Lia", items:["mushroom","olive","tomato"]},
-  {name:"Dudu", items:["pepperoni","mushroom","onion"]},
-  {name:"Nayane", items:["tomato","onion","pepper"]},
-  {name:"Gabi", items:["pepperoni","olive","pepper"]}
-];
+Escolha o nível
 
-let current, chosen=[];
+Cada nível traz 5 clientes e novas regras.
 
-function show(id){
-  document.querySelectorAll(".screen").forEach(x=>x.classList.remove("active"));
-  document.getElementById(id).classList.add("active");
-}
+← Voltar
 
-function startGame(){
-  current=orders[Math.floor(Math.random()*orders.length)];
-  chosen=[];
-  document.getElementById("customer").textContent =
-    `“Quero uma pizza com ${current.items.map(id=>ingredients.find(x=>x.id===id).name.toLowerCase()).join(", ")}.”`;
-  document.getElementById("score").textContent="0 pts";
-  document.getElementById("message").textContent="Toque nos ingredientes para montar.";
-  renderIngredients();
-  renderToppings();
-  show("game");
-}
+· tempo restante: 15.0s
 
-function renderIngredients(){
-  document.getElementById("ingredients").innerHTML=ingredients.map(i=>`
-    <button class="ing" onclick="toggle('${i.id}')">
-      <span>${i.emoji}</span><b>${i.name}</b>
-    </button>`).join("");
-}
+Sair do nível
 
-function toggle(id){
-  if(chosen.includes(id)) chosen=chosen.filter(x=>x!==id);
-  else chosen.push(id);
-  renderToppings();
-  const right=chosen.filter(x=>current.items.includes(x)).length;
-  const wrong=chosen.filter(x=>!current.items.includes(x)).length;
-  document.getElementById("score").textContent=Math.max(0,right*25-wrong*10)+" pts";
-}
+Ingredientes
 
-function renderToppings(){
-  const box=document.getElementById("toppings");
-  box.innerHTML="";
-  chosen.forEach((id,index)=>{
-    const i=ingredients.find(x=>x.id===id);
-    const angle=(index*137.5)%360;
-    const r=25+(index%3)*12;
-    const x=50+Math.cos(angle*Math.PI/180)*r;
-    const y=50+Math.sin(angle*Math.PI/180)*r;
-    box.innerHTML+=`<span class="topping" style="left:${x}%;top:${y}%">${i.emoji}</span>`;
-  });
-}
+← Metade 1Metade 2 →
 
-function deliver(){
-  const wanted=[...current.items].sort();
-  const made=[...chosen].sort();
-  let exact=JSON.stringify(wanted)===JSON.stringify(made);
-  let right=chosen.filter(x=>current.items.includes(x)).length;
-  let wrong=chosen.filter(x=>!current.items.includes(x)).length;
-  let missing=current.items.filter(x=>!chosen.includes(x)).length;
-  let score=exact?100:Math.max(0,right*25-wrong*10-missing*10);
+🔥 Colocar no fornoLimpar pizza 
 
-  document.getElementById("finalScore").textContent=score+" pts";
-  if(exact){
-    document.getElementById("resultEmoji").textContent="🎉";
-    document.getElementById("resultTitle").textContent="Pedido perfeito!";
-    document.getElementById("resultText").textContent="O cliente recebeu exatamente a pizza que pediu. Mandou bem!";
-  }else{
-    document.getElementById("resultEmoji").textContent="🍕";
-    document.getElementById("resultTitle").textContent="Quase lá!";
-    document.getElementById("resultText").textContent=`Você acertou ${right} ingrediente(s), mas faltaram ${missing} e houve ${wrong} ingrediente(s) a mais.`;
-  }
-  show("result");
-}
-</script>
-</body>
-</html>
+Forno fechado
+
+Assando...
+
+🍕
+
+💰 Ganhos: ⭐ Gorjeta: 🏆 Pontos: 
+
+Próximo cliente 
+
+Decore sua pizzaria
+
+Você compra a decoração uma vez. Ingredientes nunca custam dinheiro.
+
+← Voltar
+
+PIZZARIA MILÃO
+
+Catálogo
+
+const levels=[ {name:'Primeiro Forno',desc:'Pedidos diretos e sabores clássicos.',kind:'basic'}, {name:'Cliente Misterioso',desc:'Alguns pedidos vêm em forma de charada.',kind:'riddle'}, {name:'Hora do Rush',desc:'Pedidos mais específicos e pouca margem para erro.',kind:'rush'}, {name:'Duas Metades',desc:'Escolha sabores diferentes para cada metade.',kind:'half'}, {name:'Doce & Salgado',desc:'Pizzas doces e combinações inusitadas.',kind:'sweet'}, {name:'Noite de Estreia',desc:'Mistura de todas as mecânicas.',kind:'final'} ]; const ingredients={ calabresa:{label:'Calabresa',cls:'pep',type:'pepperoni'}, cogumelo:{label:'Cogumelo',cls:'mu',type:'mushroom'}, azeitona:{label:'Azeitona',cls:'ol',type:'olive'}, tomate:{label:'Tomate',cls:'to',type:'tomato'}, cebola:{label:'Cebola',cls:'on',type:'onion'}, pimentao:{label:'Pimentão',cls:'pe',type:'pepper'}, chocolate:{label:'Chocolate',cls:'ch',type:'choco',sweet:true}, morango:{label:'Morango',cls:'st',type:'strawberry',sweet:true}, banana:{label:'Banana',cls:'ba',type:'banana',sweet:true} }; const pizzaNames=['Milão Clássica','Jardim de Calabresa','Noite de Azeitonas','Brasa Verde','Sol de Morango','Lua de Chocolate','Aurora Tropical','Dois Mundos']; const customers=['Lia','Theo','Nina','Caio','Bia','Ravi','Maya','Davi','Luna','Ivo','Clara','Noah','Zeca','Malu','Gael']; const decorations=[ {id:'plant',name:'Vaso de manjericão',price:25,icon:'🌿',x:8,y:55}, {id:'lamp',name:'Luminária quente',price:40,icon:'💡',x:78,y:22}, {id:'table',name:'Mesinha',price:70,icon:'🪑',x:68,y:60}, {id:'poster',name:'Quadro de pizzas',price:55,icon:'🖼️',x:28,y:28}, {id:'clock',name:'Relógio da casa',price:45,icon:'🕰️',x:54,y:18}, {id:'flower',name:'Flores',price:35,icon:'🌷',x:87,y:57}, {id:'sign2',name:'Placa especial',price:100,icon:'✨',x:39,y:55}, {id:'neon',name:'Letreiro luminoso',price:180,icon:'🍕',x:52,y:38} ]; let state={money:+localStorage.getItem('milao_money')||0,best:+localStorage.getItem('milao_best')||0,unlocked:+localStorage.getItem('milao_unlocked')||1,owned:JSON.parse(localStorage.getItem('milao_owned')||'[]')}; let game={level:0,customer:0,customers:[],selected:{left:[],right:[]},half:'left',timer:null,time:15,ovenTimer:null,deadline:0}; function save(){localStorage.setItem('milao_money',state.money);localStorage.setItem('milao_best',state.best);localStorage.setItem('milao_unlocked',state.unlocked);localStorage.setItem('milao_owned',JSON.stringify(state.owned));updateStats()} function updateStats(){money.textContent=state.money;best.textContent=state.best} function hideAll(){['home','levels','game','result','shop'].forEach(id=>document.getElementById(id).classList.add('hidden'))} function goHome(){hideAll();home.classList.remove('hidden');updateStats()} function showLevels(){clearTimers();hideAll();levels.classList.remove('hidden');renderLevels()} function renderLevels(){levelgrid.innerHTML=levels.map((l,i)=>{let lock=i+1>state.unlocked;return `<button class="level ${lock?'locked':''}" ${lock?'disabled':''} onclick="startLevel(${i})"><strong>${lock?'🔒 ':'🍕 '}${i+1}. ${l.name}</strong><small>${l.desc}</small><small>${i<state.unlocked?'Disponível':'Complete o nível anterior.'}</small></button>`}).join('')} function startLevel(i){if(i+1>state.unlocked)return;game.level=i;game.customer=0;game.customers=makeCustomers(i);hideAll();game.className='';game.classList.remove('hidden');document.getElementById('game').classList.remove('hidden');nextCustomer(true)} function makeCustomers(level){let arr=[];for(let i=0;i<5;i++){let name=customers[(level*5+i)%customers.length];arr.push(makeOrder(level,i,name))}return arr} function makeOrder(level,i,name){ const savory=[['calabresa','tomate'],['calabresa','cebola'],['cogumelo','azeitona'],['calabresa','pimentao'],['tomate','cebola'],['azeitona','pimentao']]; const sweet=[['chocolate','banana'],['chocolate','morango'],['morango','banana'],['chocolate']]; let type='basic', items=savory[i%savory.length], riddle=''; if(level===1 && i%2===1){type='riddle';items=savory[(i+2)%savory.length];riddle=riddleFor(items)} if(level===2){type='rush';items=[...savory[(i+1)%savory.length],...(i%2?['azeitona']:[])];} if(level===3){type='half';items=[savory[i%savory.length][0],savory[(i+3)%savory.length][1]]} if(level===4){type='sweet';items=sweet[i%sweet.length]} if(level===5){let k=i%3;if(k===0){type='half';items=['calabresa','chocolate']}else if(k===1){type='riddle';items=['cogumelo','tomate'];riddle=riddleFor(items)}else{type='sweet';items=sweet[(i+1)%sweet.length]}} return {name,type,items:[...new Set(items)],pizza:pizzaNames[(level*2+i)%pizzaNames.length],riddle}; } function riddleFor(items){const map={calabresa:'moedas vermelhas e apimentadas',tomate:'fatias vermelhas e suculentas',cebola:'anéis roxos que fazem chorar',cogumelo:'chapéus macios de floresta',azeitona:'pequenos círculos verdes',pimentao:'tiras verdes crocantes'};return `“Quero ${map[items[0]]}${items[1]?' e '+map[items[1]]:''}. Que pizza será?”`} function nextCustomer(first=false){clearTimers();document.getElementById('result').classList.add('hidden');document.getElementById('assembly').classList.remove('hidden');document.getElementById('oven').classList.add('hidden');if(!first)game.customer++;if(game.customer>=5){finishLevel();return}game.selected={left:[],right:[]};game.half='left';game.time=15;const c=game.customers[game.customer];customerName.textContent=c.name;customerOrder.innerHTML=`<b>${c.pizza}</b> — ${c.type==='half'?'duas metades':c.type==='sweet'?'pizza doce':'pizza'}<br><span class="tiny">Ingredientes: ${c.items.map(x=>ingredients[x].label).join(', ')}</span>`;riddle.textContent=c.riddle||'';customerCount.textContent=`Cliente ${game.customer+1}/5 · Nível ${game.level+1}`;halfMode.classList.toggle('hidden',c.type!=='half');renderIngredients();clearPizza();startClock();setFace(game.customer)} function setFace(i){face.className='face '+(i%3===1?'alt':i%3===2?'alt2':'')+(i%2?' hair':'')} function renderIngredients(){const c=game.customers[game.customer];let keys=Object.keys(ingredients).filter(k=>game.level>=4?true:!ingredients[k].sweet);ingredients.innerHTML=keys.map(k=>`<button class="ing" onclick="addIngredient('${k}')"><div class="swatch ${ingredients[k].cls}"></div>${ingredients[k].label}</button>`).join('')} function setHalf(side){game.half=side;leftBtn.classList.toggle('sel',side==='left');rightBtn.classList.toggle('sel',side==='right');toast(side==='left'?'Montando a metade 1':'Montando a metade 2')} function addIngredient(k){const c=game.customers[game.customer];if(c.type!=='half' && game.half!=='left')game.half='left';if(c.type!=='half' && c.items.includes(k)===false){toast('Esse ingrediente não está no pedido.');return}let target=game.half==='left'?game.selected.left:game.selected.right;if(!target.includes(k))target.push(k);renderPizza();} function clearPizza(){game.selected={left:[],right:[]};renderPizza()} function renderPizza(){pizza.querySelectorAll('.topping,.halfline').forEach(e=>e.remove());const c=game.customers[game.customer];if(c.type==='half'){let line=document.createElement('div');line.className='halfline';pizza.appendChild(line)}let arr=[];if(c.type==='half'){game.selected.left.forEach(k=>arr.push([k,'left']));game.selected.right.forEach(k=>arr.push([k,'right']))}else game.selected.left.forEach(k=>arr.push([k,'whole']));arr.forEach(([k,side],idx)=>{let d=document.createElement('div');d.className='topping '+ingredients[k].type;let angle=(idx*137.5+12)%360;let r=18+(idx%4)*8;let x=50+Math.cos(angle*Math.PI/180)*r;let y=50+Math.sin(angle*Math.PI/180)*r;if(side==='left')x=25+Math.random()*18;if(side==='right')x=75-Math.random()*18;d.style.left=x+'%';d.style.top=y+'%';pizza.appendChild(d)})} function startClock(){game.deadline=performance.now()+15000;function tick(now){if(game.ovenTimer)return;game.time=Math.max(0,(game.deadline-now)/1000);timerText.textContent=game.time.toFixed(1);timerbar.style.width=(game.time/15*100)+'%';if(game.time<=0){failCustomer('O tempo acabou!');return}game.timer=requestAnimationFrame(tick)}game.timer=requestAnimationFrame(tick)} function clearTimers(){if(game.timer)cancelAnimationFrame(game.timer);if(game.ovenTimer)clearInterval(game.ovenTimer);game.timer=null;game.ovenTimer=null} function expectedSet(){const c=game.customers[game.customer];return c.items.map(x=>x).sort()} function selectedSet(){const c=game.customers[game.customer];if(c.type==='half')return [...game.selected.left,...game.selected.right].sort();return game.selected.left.sort()} function putInOven(){const c=game.customers[game.customer];let ok=false;if(c.type==='half'){ok=game.selected.left.length===1&&game.selected.right.length===1&&expectedSet().every(x=>selectedSet().includes(x))&&selectedSet().length===2}else{ok=selectedSet().join('|')===expectedSet().join('|')}if(!ok){toast('A pizza ainda não corresponde ao pedido.');return}clearTimers();assembly.classList.add('hidden');oven.classList.remove('hidden');bakebar.style.width='0%';let start=Date.now(),duration=3000;game.ovenTimer=setInterval(()=>{let p=Math.min(1,(Date.now()-start)/duration);bakebar.style.width=(p*100)+'%';bakeText.textContent=p<1?'Assando...':'Forno pronto!';if(p>=1){clearInterval(game.ovenTimer);game.ovenTimer=null;deliverCustomer() }},50)} function deliverCustomer(){co
