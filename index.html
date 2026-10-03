@@ -1,484 +1,561 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pizzaria Milão</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pizzaria Milano</title>
 <style>
-:root {
-  --bg: #f7efe4;
-  --ink: #2c211b;
-  --red: #b83b2e;
-  --gold: #e7a93b;
-  --green: #53734a;
-  --card: #fffaf3;
-}
-* { box-sizing: border-box; }
-body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--ink);
-  font-family: Arial, sans-serif;
-}
-button {
-  border: 0;
-  border-radius: 12px;
-  padding: 11px 14px;
-  background: var(--red);
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-}
-button.secondary { background: #e9dfd2; color: var(--ink); }
-button.gold { background: var(--gold); color: #38250d; }
-button.green { background: var(--green); }
-#app { max-width: 720px; margin: auto; padding: 16px; }
-.card {
-  background: var(--card);
-  border-radius: 20px;
-  padding: 18px;
-  margin-bottom: 16px;
-  box-shadow: 0 10px 30px #0002;
-}
-.hidden { display: none !important; }
-.top {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-  align-items: center;
-  flex-wrap: wrap;
-}
-.badge {
-  background: white;
-  border-radius: 999px;
-  padding: 8px 12px;
-  font-weight: bold;
-}
-.progress {
-  height: 10px;
-  background: #eadcca;
-  border-radius: 99px;
-  overflow: hidden;
-}
-.progress > div {
-  height: 100%;
-  background: var(--red);
-  width: 100%;
-}
-.actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-.customer {
-  font-size: 1.1rem;
-  line-height: 1.45;
-}
-.pizza {
-  width: min(80vw, 330px);
-  aspect-ratio: 1;
-  margin: 18px auto;
-  border-radius: 50%;
-  background: #d99b50;
-  border: 16px solid #c47c3a;
-  position: relative;
-  box-shadow: inset 0 0 0 7px #f1c278, 0 8px 20px #0003;
-}
-.topping {
-  position: absolute;
-  width: 25px;
-  height: 18px;
-  border-radius: 50%;
-  background: #b83b2e;
-}
-.mush { background: #d7c4a8; }
-.olive { background: #403a2d; width: 16px; height: 16px; }
-.tom { background: #df4d3d; }
-.onion { background: #d8a6cf; }
-.pep { background: #5c9a55; }
-.sweet { background: #8b5b36; }
-.oven {
-  border: 10px solid #6b4934;
-  background: #3b2921;
-  border-radius: 14px;
-  padding: 20px;
-  text-align: center;
-  color: white;
-}
-.door {
-  background: #222;
-  border: 5px solid #8c674d;
-  border-radius: 10px;
-  padding: 35px 10px;
-  margin-top: 10px;
-}
-.shop-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-}
-.decor {
-  background: white;
-  border: 2px solid #eadcca;
-  color: var(--ink);
-}
-</style>
-</head>
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;background:#f7ead9;color:#34251d}.wrap{max-width:760px;margin:auto;padding:18px}.screen{background:#fffaf3;border:3px solid #9b6244;border-radius:22px;padding:20px;margin:14px 0;box-shadow:0 8px 22px #0002}.hidden{display:none!important}button{border:0;border-radius:12px;padding:12px 18px;font-weight:800;font-size:16px;cursor:pointer}.primary{background:#9b392c;color:white}.secondary{background:#ead7c2;color:#34251d}.center{text-align:center}.tiny{font-size:13px;opacity:.75}.top{display:flex;justify-content:space-between;align-items:center;gap:10px}.customer-card{display:flex;align-items:center;gap:14px;background:#fff;border:2px solid #ead8c5;border-radius:18px;padding:12px}.customer-avatar{width:70px;height:70px;border-radius:50%;background:#efc39c;border:4px solid #87523c;position:relative;flex:none}.customer-avatar:before,.customer-avatar:after{content:"";position:absolute;width:8px;height:11px;border-radius:50%;background:#2c211b;top:26px}.customer-avatar:before{left:18px}.customer-avatar:after{right:18px}.pizza{width:230px;height:230px;margin:15px auto;border-radius:50%;background:#e5b36b;border:12px solid #d87835;position:relative;overflow:hidden}.piece{position:absolute;width:28px;height:28px;border-radius:50%;background:#bd3828;border:2px solid #8b271c}.piece:nth-child(2){left:65px;top:45px}.piece:nth-child(3){left:130px;top:80px}.piece:nth-child(4){left:75px;top:135px}.piece:nth-child(5){left:155px;top:145px}.piece:nth-child(6){left:35px;top:105px}.work{padding:12px}.timer{font-size:30px;font-weight:900;text-align:center}.shopgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}.item{background:#fff;border:2px solid #ddc5aa;border-radius:15px;padding:14px}.decor-preview{position:relative;min-height:300px;border-radius:18px;background:linear-gradient(#f5e5cf 0 68%,#b4774f 68%);border:4px solid #8c5a3f;overflow:hidden}.sign{position:absolute;left:50%;top:25px;transform:translateX(-50%);background:#fff6d9;border:4px solid #8c4b31;padding:8px 18px;border-radius:10px;font:bold 21px Georgia;color:#9b2e25;white-space:nowrap}.table{position:absolute;left:12%;right:12%;bottom:18px;height:65px;background:#7d4e37;border-radius:12px}.chair{position:absolute;bottom:18px;width:45px;height:70px;background:#b36e4b;border-radius:8px}.c1{left:5%}.c2{right:5%}.decor-item{position:absolute;z-index:3}.decor-lights{left:8%;right:8%;top:8px;height:18px;border-top:5px dotted #d6a72d}.decor-plant{right:15%;bottom:72px;font-size:52px}.decor-picture{left:12%;top:75px;font-size:48px}.decor-arcade{right:10%;bottom:75px;font-size:54px}.decor-letter{left:50%;top:105px;transform:translateX(-50%);font-size:38px}.c3{left:20%}.c4{right:20%}.arcade{background:#181b1e;color:#fff;border-radius:18px;padding:14px}.arcade-screen{height:250px;background:#eef3e5;border:7px solid #444;border-radius:10px;position:relative;overflow:hidden}.arcade-ground{position:absolute;left:0;right:0;bottom:32px;height:4px;background:#263024}.runner{position:absolute;left:45px;bottom:36px;width:28px;height:42px;background:#53734a;border-radius:7px}.runner:before{content:"";position:absolute;width:24px;height:24px;background:#e2a36f;border-radius:50%;left:2px;top:-18px}.obstacle{position:absolute;bottom:36px;width:34px;height:26px;background:linear-gradient(#8b5a2b 0 28%,#6b3f1f 29% 100%);border-radius:3px 3px 2px 2px;box-shadow:0 4px 0 #4a2a16;}.arcade-score{text-align:center;font:900 19px monospace;margin:7px}.letter-card{max-width:620px;margin:20px auto;padding:24px;background:#fffdf3;border:3px solid #d3b36e;border-radius:12px;font-family:Georgia,serif;line-height:1.6}
 
-<body>
-<div id="app">
-
-<section id="home" class="card">
-  <h1>🍕 Pizzaria Milão</h1>
-  <p>Monte pizzas, atenda clientes, ganhe gorjetas e decore sua pizzaria.</p>
-  <button onclick="startGame()">Começar</button>
-  <button class="secondary" onclick="showShop()">Decorar pizzaria</button>
+.ingredient-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}
+.ingredient-btn{background:#fff;border:2px solid #d8bda0;border-radius:12px;padding:9px 4px;font-size:14px}
+.ingredient-btn.selected{outline:3px solid #9b392c;background:#ffe4d6}
+.pizza .ingredient-piece{position:absolute;width:25px;height:25px;border-radius:50%;z-index:2}
+.pizza .ingredient-piece.pepperoni{background:#bd3828;border:2px solid #7e2119}
+.pizza .ingredient-piece.tomato{background:#e84a35;border:2px solid #a62b1d;border-radius:7px}
+.pizza .ingredient-piece.onion{background:#ead9ed;border:2px solid #a985a9}
+.pizza .ingredient-piece.mushroom{background:#d4ad84;border:2px solid #96704f;border-radius:9px 9px 5px 5px}
+.pizza .ingredient-piece.olive{background:#35452d;border:2px solid #202a1c}
+.pizza .ingredient-piece.pineapple{background:#f4c84e;border:2px solid #c49420;border-radius:7px}
+.pizza .ingredient-piece.strawberry{background:#e83d48;border:2px solid #a6222c;border-radius:8px}
+.pizza .ingredient-piece.banana{background:#f5dc55;border:2px solid #c2a928;border-radius:12px}
+.pizza .ingredient-piece.chocolate{background:#5b3525;border:2px solid #382016;border-radius:5px}
+.pizza .ingredient-piece.cheese{background:#ffd95c;border:2px solid #d4aa28;border-radius:5px}
+</style></head>
+<body><div class="wrap">
+<section id="home" class="screen">
+<h1>🍕 Pizzaria Milano</h1><p>Monte pizzas, atenda clientes, decore sua pizzaria e desbloqueie o arcade.</p>
+<div class="center"><button class="primary" onclick="levels()">Começar</button> <button class="secondary" onclick="shop()">🛍️ Decorações</button></div>
+<p class="center">💰 R$ <span id="money">0</span> · ⭐ <span id="score">0</span></p>
+<div id="homeArcade"></div>
 </section>
-
-<section id="game" class="hidden">
-  <div class="card">
-    <div class="top">
-      <h2 id="levelTitle"></h2>
-      <span class="badge">💰 <span id="money">0</span></span>
-    </div>
-    <p>Cliente <b id="customerNo"></b> de 5</p>
-    <div class="progress"><div id="timebar"></div></div>
-    <p id="timer"></p>
-  </div>
-
-  <div class="card">
-    <h3 id="customerName"></h3>
-    <p class="customer" id="orderText"></p>
-
-    <div id="pizza" class="pizza"></div>
-
-    <div class="actions" id="ingredients"></div>
-
-    <hr>
-
-    <div class="oven">
-      <b>FORNO</b>
-      <div class="door" id="ovenDoor">Coloque a pizza no forno</div>
-      <div class="actions" style="justify-content:center;margin-top:10px">
-        <button onclick="putInOven()">Colocar no forno</button>
-        <button class="gold" onclick="takeFromOven()">Tirar do forno</button>
-      </div>
-    </div>
-
-    <br>
-    <button class="green" onclick="deliver()">Entregar pizza</button>
-  </div>
-</section>
-
-<section id="result" class="card hidden">
-  <h2 id="resultTitle"></h2>
-  <p id="resultText"></p>
-  <button onclick="nextCustomer()">Próximo cliente</button>
-</section>
-
-<section id="shop" class="card hidden">
-  <div class="top">
-    <h2>Decoração</h2>
-    <button class="secondary" onclick="backHome()">Voltar</button>
-  </div>
-  <p>O dinheiro serve somente para decorar. As compras ficam permanentes neste navegador.</p>
-  <div class="shop-grid" id="decorations"></div>
-</section>
-
+<section id="levelsScreen" class="screen hidden"><div class="top"><h2>Níveis</h2><button class="secondary" onclick="home()">← Voltar</button></div><div id="levels"></div></section>
+<section id="game" class="screen hidden">
+<div class="top"><h2 id="levelTitle">Nível</h2><button class="secondary" onclick="levels()">Sair</button></div>
+<div class="customer-card"><div class="customer-avatar"></div><div><b id="customerName">Cliente</b><p id="order">Pedido</p></div></div>
+<div id="acceptBox" class="center"><p>Leia o pedido com calma.</p><button class="primary" onclick="acceptOrder()">🍕 Aceitar pedido</button></div>
+<div id="assembly" class="work hidden">
+<div class="timer">⏱️ <span id="timer">30</span>s</div>
+<div class="pizza" id="pizza"></div>
+<h3 class="center">Escolha os ingredientes</h3>
+<p class="center tiny">Clique nos ingredientes que o cliente pediu. Depois, asse a pizza.</p>
+<div id="ingredients" class="ingredient-grid"></div>
+<p class="center">Selecionados: <b id="selectedList">nenhum</b></p>
+<div class="center"><button class="primary" onclick="bake()">🔥 Colocar no forno</button></div>
 </div>
-
+<div id="oven" class="work hidden center"><h2>🔥 Forno fechado</h2><p id="bakeText">Assando...</p></div>
+</section>
+<section id="result" class="screen hidden center"><h2>Pedido concluído! 🍕</h2><p id="resultText"></p><button class="primary" onclick="nextCustomer()">Próximo cliente</button></section>
+<section id="complete" class="screen hidden center"><h2>🎉 Nível completo!</h2><p>Seu dinheiro e seu score foram preservados.</p><button class="primary" onclick="levels()">Voltar aos níveis</button> <button class="secondary" onclick="shop()">Decorar</button></section>
+<section id="shop" class="screen hidden"><div class="top"><h2>🛍️ Decorações</h2><button class="secondary" onclick="home()">← Voltar</button></div><div id="decorScene" class="decor-preview"><div class="sign">PIZZARIA MILANO</div><div class="chair c1"></div><div class="chair c2"></div><div class="table"></div></div><div class="shopgrid" id="items"></div></section>
+<section id="arcade" class="screen hidden"><div class="top"><h2>🕹️ Arcade</h2><button class="secondary" onclick="home()">← Voltar</button></div><div class="arcade"><div class="arcade-score">PONTOS: <span id="arcadeScore">0</span> / 1.000.000</div><div id="arcadeScreen" class="arcade-screen"><div class="arcade-ground"></div><div id="runner" class="runner"></div></div><p class="center">Toque na tela ou aperte espaço para pular.</p><div class="center"><button class="primary" onclick="startArcade()">Começar / reiniciar</button></div></div></section>
+<section id="ending" class="screen hidden center"><div style="font-size:72px">🍕</div><h2>1.000.000 de pontos!</h2><p>A pizza gigante apareceu e decidiu encerrar o expediente. 💔</p><div class="letter-card"><b>Obrigado por jogar! 😊☝🏻</b><br><br>Você chegou ao final da Pizzaria Milano. Obrigado por jogar e por fazer parte da nossa pizzaria.<br><br><i>— Pizzaria Milano</i></div><button class="primary" onclick="home()">Voltar</button></section>
+</div>
 <script>
-const ingredients = [
-  ["calabresa", "Calabresa", "topping"],
-  ["cogumelo", "Cogumelo", "mush"],
-  ["azeitona", "Azeitona", "olive"],
-  ["tomate", "Tomate", "tom"],
-  ["cebola", "Cebola", "onion"],
-  ["pimentao", "Pimentão", "pep"],
-  ["chocolate", "Chocolate", "sweet"],
-  ["morango", "Morango", "tom"]
+const names=["Luna","Theo","Bia","Ravi","Nina","Gael","Maya","Noah","Iris","Léo"];
+
+const recipes=[
+ {name:"Pepperoni",ingredients:["🍕 Pepperoni"],order:"uma pizza de pepperoni",clue:"Sou vermelho e picante, e costumo chegar em rodelinhas."},
+ {name:"Queijo",ingredients:["🧀 Queijo"],order:"uma pizza de queijo",clue:"Sou amarelo, derreto no forno e adoro cobrir a massa."},
+ {name:"Chocolate",ingredients:["🍫 Chocolate"],order:"uma pizza de chocolate",clue:"Sou doce, marrom e apareço numa pizza que parece sobremesa."},
+ {name:"Morango doce",ingredients:["🍓 Morango"],order:"uma pizza doce de morango",clue:"Sou vermelho, docinho e tenho sementinhas do lado de fora."},
+ {name:"Meio a meio",ingredients:["🍕 Pepperoni","🧀 Queijo"],order:"uma pizza meio pepperoni e meio queijo",clue:"Quero dois sabores na mesma pizza: um salgado e vermelho, outro amarelo e derretido."},
+ {name:"Tropical",ingredients:["🍍 Abacaxi","🍌 Banana"],order:"uma pizza tropical de abacaxi e banana",clue:"Sou amarelo e tropical, mas não sou uma fruta só: quero duas frutas amarelas."},
+ {name:"Horta",ingredients:["🍅 Tomate","🧅 Cebola","🍄 Cogumelo"],order:"uma pizza da horta",clue:"Venho da horta: sou vermelho, tenho camadas e também pareço um pequeno guarda-chuva."},
+ {name:"Mediterrânea",ingredients:["🍅 Tomate","🫒 Azeitona","🧀 Queijo"],order:"uma pizza mediterrânea",clue:"Quero vermelho, amarelo derretido e pequenas bolinhas escuras."},
+ {name:"Banana com chocolate",ingredients:["🍌 Banana","🍫 Chocolate"],order:"uma pizza doce de banana com chocolate",clue:"Uma fruta amarela encontra um ingrediente marrom e doce."},
+ {name:"Morango com chocolate",ingredients:["🍓 Morango","🍫 Chocolate"],order:"uma pizza doce de morango com chocolate",clue:"Sou uma dupla de sobremesa: vermelho com sementinhas + doce e marrom."},
+ {name:"Queijo com tomate",ingredients:["🧀 Queijo","🍅 Tomate"],order:"uma pizza de queijo com tomate",clue:"O amarelo derrete e o vermelho dá o toque fresco."},
+ {name:"Queijo com cebola",ingredients:["🧀 Queijo","🧅 Cebola"],order:"uma pizza de queijo com cebola",clue:"O ingrediente amarelo que derrete divide espaço com várias camadas de uma coisa que faz chorar."},
+ {name:"Queijo com cogumelo",ingredients:["🧀 Queijo","🍄 Cogumelo"],order:"uma pizza de queijo com cogumelo",clue:"Queijo derretido com pequenos guarda-chuvas comestíveis."},
+ {name:"Pepperoni com tomate",ingredients:["🍕 Pepperoni","🍅 Tomate"],order:"uma pizza de pepperoni com tomate",clue:"Quero duas coisas vermelhas: uma vem em rodelas e a outra é suculenta."},
+ {name:"Pepperoni com azeitona",ingredients:["🍕 Pepperoni","🫒 Azeitona"],order:"uma pizza de pepperoni com azeitona",clue:"Rodelinhas vermelhas encontram pequenas bolinhas escuras."},
+ {name:"Tropical com queijo",ingredients:["🍍 Abacaxi","🍌 Banana","🧀 Queijo"],order:"uma pizza tropical com queijo",clue:"Duas frutas amarelas e um ingrediente que derrete. Sim, essa mistura existe."},
+ {name:"Horta com queijo",ingredients:["🍅 Tomate","🧅 Cebola","🍄 Cogumelo","🧀 Queijo"],order:"uma pizza da horta com queijo",clue:"A horta completa ganhou uma cobertura amarela e derretida."},
+ {name:"Mediterrânea picante",ingredients:["🍕 Pepperoni","🍅 Tomate","🫒 Azeitona"],order:"uma pizza mediterrânea picante",clue:"Vermelho em dobro e bolinhas escuras: uma parte é picante, outra vem da horta."},
+ {name:"Doce tropical",ingredients:["🍍 Abacaxi","🍌 Banana","🍫 Chocolate"],order:"uma pizza doce tropical",clue:"Duas frutas amarelas encontram o ingrediente marrom da sobremesa."},
+ {name:"Frutas vermelhas doces",ingredients:["🍓 Morango","🍌 Banana"],order:"uma pizza doce de morango e banana",clue:"Uma fruta vermelha e uma amarela dividem a sobremesa."},
+ {name:"Chocolate com banana e morango",ingredients:["🍫 Chocolate","🍌 Banana","🍓 Morango"],order:"uma pizza de chocolate com banana e morango",clue:"A sobremesa tem três cores: marrom, amarelo e vermelho."},
+ {name:"Quatro da horta",ingredients:["🍅 Tomate","🧅 Cebola","🍄 Cogumelo","🫒 Azeitona"],order:"uma pizza quatro da horta",clue:"Quatro ingredientes da horta: vermelho, camadas, guarda-chuva e bolinhas escuras."},
+ {name:"Queijo mediterrâneo",ingredients:["🧀 Queijo","🍅 Tomate","🫒 Azeitona"],order:"uma pizza de queijo mediterrâneo",clue:"Amarelo derretido, vermelho e pequenas bolinhas escuras."},
+ {name:"Pepperoni completa",ingredients:["🍕 Pepperoni","🧀 Queijo","🍅 Tomate"],order:"uma pizza de pepperoni, queijo e tomate",clue:"Rodelinhas vermelhas, queijo derretido e mais um toque vermelho."},
+ {name:"Pepperoni especial",ingredients:["🍕 Pepperoni","🧀 Queijo","🫒 Azeitona"],order:"uma pizza de pepperoni, queijo e azeitona",clue:"Rodelinhas vermelhas, amarelo derretido e bolinhas escuras."},
+ {name:"Tropical completa",ingredients:["🍍 Abacaxi","🍌 Banana","🍓 Morango"],order:"uma pizza tropical de abacaxi, banana e morango",clue:"Duas frutas amarelas e uma fruta vermelha."},
+ {name:"Sobremesa tripla",ingredients:["🍓 Morango","🍌 Banana","🍫 Chocolate"],order:"uma pizza doce de morango, banana e chocolate",clue:"Vermelho, amarelo e marrom: três ingredientes para uma sobremesa."},
+ {name:"Horta mediterrânea",ingredients:["🍅 Tomate","🧅 Cebola","🫒 Azeitona"],order:"uma pizza de tomate, cebola e azeitona",clue:"Vermelho, camadas e bolinhas escuras — simples, mas nada repetitivo."},
+ {name:"Horta quatro queijos? Não!",ingredients:["🍅 Tomate","🧅 Cebola","🍄 Cogumelo"],order:"uma pizza de tomate, cebola e cogumelo",clue:"Três coisas da horta: vermelho, camadas e um pequeno guarda-chuva."},
+ {name:"Especial Milano",ingredients:["🍕 Pepperoni","🧀 Queijo","🍅 Tomate","🫒 Azeitona"],order:"a especial Milano",clue:"Quero quatro ingredientes: rodelinhas vermelhas, amarelo derretido, vermelho suculento e bolinhas escuras."}
 ];
 
-const orders = [
-  {
-    name: "Lia",
-    text: "Quero uma pizza de calabresa, tomate e cebola.",
-    need: ["calabresa", "tomate", "cebola"]
-  },
-  {
-    name: "Davi",
-    text: "Quero calabresa e tomate. A pista é: sou vermelho, pequeno e combino com a calabresa.",
-    need: ["calabresa", "tomate"]
-  },
-  {
-    name: "Maya",
-    text: "No campo eu cresço, no forno eu me aqueço; com chocolate me encontro e doce eu pareço.",
-    need: ["chocolate", "morango"]
-  },
-  {
-    name: "Theo",
-    text: "Metade calabresa com azeitona e metade chocolate com morango.",
-    need: ["calabresa", "azeitona", "chocolate", "morango"]
-  },
-  {
-    name: "Nina",
-    text: "Sou roxa, tenho camadas e posso fazer chorar. Quero aparecer na pizza.",
-    need: ["cebola"]
-  },
-  {
-    name: "Ravi",
-    text: "Vermelho eu sou, redondo eu fico; com calabresa no queijo eu me misturo.",
-    need: ["calabresa", "tomate"]
+const levelsData=[
+ {recipes:[0,1,2,3],time:34,mode:"direct"},
+ {recipes:[4,5,6,7],time:32,mode:"silly"},
+ {recipes:[8,9,10,11,12],time:30,mode:"clue"},
+ {recipes:[13,14,15,16,17],time:28,mode:"clue"},
+ {recipes:[18,19,20,21,22],time:26,mode:"clue"},
+ {recipes:[23,24,25,26,27,28,29],time:24,mode:"hard"}
+];
+
+let level=1,totalCustomers=4,customer=0,timer=0,clock=null,baking=false,currentRecipe=null,orderRecipeIndex=0;
+
+const money=()=>+localStorage.getItem("milano_money")||0;
+const score=()=>+localStorage.getItem("milano_score")||0;
+
+function save(){
+ document.getElementById("money").textContent=money();
+ document.getElementById("score").textContent=score();
+}
+
+function hide(){
+ clearInterval(clock);
+ document.querySelectorAll(".screen").forEach(x=>x.classList.add("hidden"));
+}
+
+function home(){
+ hide();
+ document.getElementById("home").classList.remove("hidden");
+ save();
+ renderArcadeButton();
+}
+
+function levels(){
+ hide();
+ document.getElementById("levelsScreen").classList.remove("hidden");
+ const e=document.getElementById("levels");
+ e.innerHTML="";
+ levelsData.forEach((data,i)=>{
+  const b=document.createElement("button");
+  b.className="primary";
+  b.style.margin="5px";
+  b.textContent="Nível "+(i+1);
+  b.onclick=()=>startLevel(i+1);
+  e.appendChild(b);
+ });
+}
+
+function startLevel(n){
+ level=Math.min(Math.max(1,n),levelsData.length);
+ customer=0;
+ totalCustomers=levelsData[level-1].recipes.length;
+ hide();
+ document.getElementById("game").classList.remove("hidden");
+ loadCustomer();
+}
+
+function loadCustomer(){
+ clearInterval(clock);
+ baking=false;
+ const data=levelsData[level-1];
+ const recipeIndex=data.recipes[customer];
+ currentRecipe=recipes[recipeIndex];
+
+ document.getElementById("acceptBox").classList.remove("hidden");
+ document.getElementById("assembly").classList.add("hidden");
+ document.getElementById("oven").classList.add("hidden");
+ document.getElementById("customerName").textContent=names[(level*3+customer)%names.length];
+ document.getElementById("levelTitle").textContent="Nível "+level+" · Cliente "+(customer+1)+" de "+totalCustomers;
+
+ let text=currentRecipe.order;
+ if(data.mode==="silly"){
+  const silly=[
+   "Quero uma pizza bem maluquinha:\n"+currentRecipe.clue,
+   "Meu pedido é simples, mas a rima é duvidosa:\n"+currentRecipe.clue,
+   "Atenção, pizzaiolo: descubra esta poesia suspeita:\n"+currentRecipe.clue
+  ];
+  text=silly[customer%3];
+ }else if(data.mode==="clue" || data.mode==="hard"){
+  text=currentRecipe.clue;
+ }
+ document.getElementById("order").textContent=text;
+ renderIngredients();
+}
+
+function acceptOrder(){
+ const data=levelsData[level-1];
+ document.getElementById("acceptBox").classList.add("hidden");
+ document.getElementById("assembly").classList.remove("hidden");
+
+ timer=data.time;
+ document.getElementById("timer").textContent=timer;
+
+ clearInterval(clock);
+ clock=setInterval(()=>{
+  if(timer<=0)return;
+  timer--;
+  document.getElementById("timer").textContent=timer;
+  if(timer<=0){
+   clearInterval(clock);
+   document.getElementById("timer").textContent="0";
   }
+ },550);
+}
+
+function bake(){
+ if(baking)return;
+ if(!selected.length){
+  alert("Escolha pelo menos um ingrediente antes de assar a pizza!");
+  return;
+ }
+
+ baking=true;
+ clearInterval(clock);
+ document.getElementById("assembly").classList.add("hidden");
+ document.getElementById("oven").classList.remove("hidden");
+
+ let t=4;
+ document.getElementById("bakeText").textContent="Assando... "+t+"s";
+
+ const x=setInterval(()=>{
+  t--;
+  document.getElementById("bakeText").textContent=t>0?"Assando... "+t+"s":"Pizza pronta!";
+  if(t<=0){
+   clearInterval(x);
+   const wanted=currentRecipe.ingredients.slice().sort();
+   const made=selected.slice().sort();
+   const correct=wanted.length===made.length && wanted.every((v,i)=>v===made[i]);
+   finishCustomer(correct);
+  }
+ },1000);
+}
+
+function finishCustomer(success){
+ clearInterval(clock);
+ hide();
+ document.getElementById("result").classList.remove("hidden");
+
+ if(success){
+  const tip=Math.max(20,timer*5)+level*10;
+  localStorage.setItem("milano_money",money()+tip);
+  localStorage.setItem("milano_score",score()+tip*10);
+  document.getElementById("resultText").textContent=
+   "Pedido concluído! Você ganhou R$ "+tip+" de gorjeta.";
+ }else{
+  document.getElementById("resultText").textContent=
+   "Pizza assada e entregue, mas havia ingrediente errado. O valor da pizza foi reembolsado e você não recebeu gorjeta.";
+ }
+ save();
+}
+
+function nextCustomer(){
+ customer++;
+ if(customer>=totalCustomers){
+  hide();
+  document.getElementById("complete").classList.remove("hidden");
+ }else{
+  hide();
+  document.getElementById("game").classList.remove("hidden");
+  loadCustomer();
+ }
+}
+
+/* DECORAÇÕES */
+const items=[
+ ["🍅","Mesa nova",800],
+ ["💡","Luzes",1200],
+ ["🌵","Planta",1500],
+ ["🖼️","Quadro",1800],
+ ["🪑","Cadeiras",2200],
+ ["🕹️","Máquina Arcade",5000],
+ ["💌","Carta de agradecimento",10000]
 ];
 
-const levels = [
-  [0, 1, 2, 3, 4],
-  [1, 2, 3, 4, 5],
-  [0, 2, 3, 5, 1],
-  [3, 4, 0, 2, 5],
-  [2, 3, 4, 0, 1],
-  [5, 4, 3, 2, 0]
-];
+function getOwned(){
+ return JSON.parse(localStorage.getItem("milano_owned")||"[]");
+}
+function getEquipped(){
+ return JSON.parse(localStorage.getItem("milano_equipped")||"[]");
+}
+function setOwned(a){
+ localStorage.setItem("milano_owned",JSON.stringify(a));
+}
+function setEquipped(a){
+ localStorage.setItem("milano_equipped",JSON.stringify(a));
+}
 
-const decorations = [
-  ["planta", "🌿 Planta", 20],
-  ["quadro", "🖼️ Quadro", 35],
-  ["luz", "💡 Luminária", 45],
-  ["mesa", "🪑 Mesa nova", 60],
-  ["letreiro", "✨ Letreiro", 90],
-  ["jukebox", "🎵 Jukebox", 120]
-];
+function shop(){
+ hide();
+ document.getElementById("shop").classList.remove("hidden");
+ renderShop();
+ renderDecorations();
+}
 
-let state = {
-  level: 1,
-  customer: 0,
-  money: Number(localStorage.getItem("milaoMoney") || 0),
-  selected: [],
-  baked: false,
-  start: 0,
-  order: null
+function renderDecorations(){
+ const scene=document.getElementById("decorScene");
+ if(!scene)return;
+ scene.querySelectorAll(".decor-item").forEach(x=>x.remove());
+
+ const equipped=getEquipped();
+ const add=(cls,text)=>{
+  const d=document.createElement("div");
+  d.className="decor-item "+cls;
+  d.textContent=text;
+  scene.appendChild(d);
+ };
+
+ if(equipped.includes("Luzes"))add("decor-lights","");
+ if(equipped.includes("Planta"))add("decor-plant","🌵");
+ if(equipped.includes("Quadro"))add("decor-picture","🖼️");
+ if(equipped.includes("Máquina Arcade"))add("decor-arcade","🕹️");
+ if(equipped.includes("Carta de agradecimento"))add("decor-letter","💌");
+ if(equipped.includes("Cadeiras")){
+  add("chair c3","");
+  add("chair c4","");
+ }
+}
+
+function renderShop(){
+ const e=document.getElementById("items");
+ const owned=getOwned();
+ const equipped=getEquipped();
+ e.innerHTML="";
+
+ items.forEach(([icon,n,p])=>{
+  const d=document.createElement("div");
+  d.className="item";
+  const has=owned.includes(n);
+  const on=equipped.includes(n);
+
+  d.innerHTML=
+   "<div style='font-size:38px'>"+icon+"</div>"+
+   "<b>"+n+"</b>"+
+   "<p>R$ "+p.toLocaleString("pt-BR")+"</p>";
+
+  const b=document.createElement("button");
+  b.className=has?(on?"secondary":"primary"):"primary";
+  b.textContent=!has?"Comprar":(on?"Remover":"Colocar");
+  b.onclick=()=>buy(n,p);
+  d.appendChild(b);
+  e.appendChild(d);
+ });
+}
+
+function buy(name,price){
+ let owned=getOwned();
+ let equipped=getEquipped();
+
+ if(!owned.includes(name)){
+  if(money()<price){
+   alert("Dinheiro insuficiente.");
+   return;
+  }
+  localStorage.setItem("milano_money",money()-price);
+  owned.push(name);
+  equipped.push(name);
+ }else if(equipped.includes(name)){
+  equipped=equipped.filter(x=>x!==name);
+ }else{
+  equipped.push(name);
+ }
+
+ setOwned(owned);
+ setEquipped(equipped);
+ renderShop();
+ renderDecorations();
+ renderArcadeButton();
+ save();
+}
+
+function renderArcadeButton(){
+ const e=document.getElementById("homeArcade");
+ if(!e)return;
+ e.innerHTML="";
+
+ if(getEquipped().includes("Máquina Arcade")){
+  const b=document.createElement("button");
+  b.className="secondary";
+  b.textContent="🕹️ Jogar Arcade";
+  b.onclick=arcade;
+  e.appendChild(b);
+ }
+}
+
+/* ARCADE: continua até perder. Não existe limite de pontuação. */
+let A={run:false,score:0,y:0,vy:0,last:0,spawn:0,obs:[]};
+
+function arcade(){
+ hide();
+ document.getElementById("arcade").classList.remove("hidden");
+ stopArcade();
+ document.getElementById("arcadeScore").textContent="0";
+}
+
+function stopArcade(){
+ A.run=false;
+ clearArcadeObstacles();
+}
+
+function clearArcadeObstacles(){
+ const s=document.getElementById("arcadeScreen");
+ if(s)s.querySelectorAll(".obstacle").forEach(x=>x.remove());
+}
+
+function jump(){
+ if(!A.run)return;
+ if(A.y<=0.5){
+  A.vy=58;
+ }
+}
+
+function startArcade(){
+ const s=document.getElementById("arcadeScreen");
+ const r=document.getElementById("runner");
+
+ A.run=false;
+ clearArcadeObstacles();
+ A={run:true,score:0,y:0,vy:58,last:performance.now(),spawn:.9,obs:[]};
+ r.style.bottom="36px";
+ document.getElementById("arcadeScore").textContent="0";
+ requestAnimationFrame(loop);
+}
+
+function loop(t){
+ if(!A.run)return;
+
+ const dt=Math.min(0.025,(t-A.last)/1000);
+ A.last=t;
+
+ const gravity=145;
+ const speed=8+Math.min(7,A.score/15000);
+
+ A.vy-=gravity*dt;
+ A.y+=A.vy*dt;
+
+ if(A.y<0){
+  A.y=0;
+  A.vy=0;
+ }
+
+ const runner=document.getElementById("runner");
+ runner.style.bottom=(36+A.y*3)+"px";
+
+ A.spawn-=dt;
+ if(A.spawn<=0){
+  A.spawn=.75+Math.random()*.65;
+
+  const o=document.createElement("div");
+  o.className="obstacle";
+  
+  o.style.left="100%";
+  document.getElementById("arcadeScreen").appendChild(o);
+  A.obs.push(o);
+ }
+
+ A.obs=A.obs.filter(o=>{
+  let x=parseFloat(o.style.left);
+  x-=speed*dt*7;
+  o.style.left=x+"%";
+
+  const q=o.getBoundingClientRect();
+  const p=runner.getBoundingClientRect();
+
+  /* Só perde quando o personagem realmente encosta no obstáculo.
+     Saltar por cima deixa o jogo continuar normalmente. */
+  const hit=q.left<p.right-4 && q.right>p.left+4 &&
+            q.top<p.bottom-3 && q.bottom>p.top+3;
+
+  if(hit){
+   A.run=false;
+   alert("Fim de jogo! Pontuação: "+Math.floor(A.score).toLocaleString("pt-BR"));
+   return false;
+  }
+
+  if(x<-10){
+   o.remove();
+   return false;
+  }
+  return true;
+ });
+
+ A.score+=dt*speed*1200;
+ document.getElementById("arcadeScore").textContent=
+  Math.floor(A.score).toLocaleString("pt-BR");
+
+ /* Sem limite: só termina quando houver colisão. */
+ if(A.run)requestAnimationFrame(loop);
+}
+
+document.addEventListener("keydown",e=>{
+ if(e.code==="Space" && A.run){
+  e.preventDefault();
+  jump();
+ }
+});
+
+document.addEventListener("pointerdown",e=>{
+ if(A.run && e.target.closest("#arcadeScreen")){
+  jump();
+ }
+});
+
+/* INGREDIENTES */
+const ING={
+ "🍕 Pepperoni":"pepperoni",
+ "🍅 Tomate":"tomato",
+ "🧅 Cebola":"onion",
+ "🍄 Cogumelo":"mushroom",
+ "🫒 Azeitona":"olive",
+ "🍍 Abacaxi":"pineapple",
+ "🍓 Morango":"strawberry",
+ "🍌 Banana":"banana",
+ "🍫 Chocolate":"chocolate",
+ "🧀 Queijo":"cheese"
 };
 
-let owned = JSON.parse(localStorage.getItem("milaoDecor") || "[]");
+let selected=[];
 
-function save() {
-  localStorage.setItem("milaoMoney", state.money);
-  localStorage.setItem("milaoDecor", JSON.stringify(owned));
+function renderIngredients(){
+ const box=document.getElementById("ingredients");
+ if(!box)return;
+
+ box.innerHTML="";
+ selected=[];
+
+ Object.keys(ING).forEach(name=>{
+  const b=document.createElement("button");
+  b.className="ingredient-btn";
+  b.textContent=name;
+  b.onclick=()=>toggleIngredient(name,b);
+  box.appendChild(b);
+ });
+
+ renderSelected();
+ renderPizza();
 }
 
-function hideAll() {
-  document.querySelectorAll("#home, #game, #result, #shop")
-    .forEach(element => element.classList.add("hidden"));
+function toggleIngredient(name,b){
+ if(selected.includes(name)){
+  selected=selected.filter(x=>x!==name);
+  b.classList.remove("selected");
+ }else{
+  selected.push(name);
+  b.classList.add("selected");
+ }
+ renderPizza();
+ renderSelected();
 }
 
-function startGame() {
-  hideAll();
-  state.level = 1;
-  state.customer = 0;
-  loadCustomer();
+function renderSelected(){
+ const e=document.getElementById("selectedList");
+ if(e)e.textContent=selected.length?selected.join(", "):"nenhum";
 }
 
-function loadCustomer() {
-  hideAll();
-  document.getElementById("game").classList.remove("hidden");
+function renderPizza(){
+ const p=document.getElementById("pizza");
+ if(!p)return;
 
-  state.selected = [];
-  state.baked = false;
-  state.order = orders[levels[state.level - 1][state.customer] % orders.length];
-  state.start = Date.now();
-
-  document.getElementById("levelTitle").textContent = "Nível " + state.level;
-  document.getElementById("customerNo").textContent = state.customer + 1;
-  document.getElementById("money").textContent = state.money;
-  document.getElementById("customerName").textContent = state.order.name;
-  document.getElementById("orderText").textContent = state.order.text;
-
-  renderIngredients();
-  renderPizza();
-
-  document.getElementById("ovenDoor").textContent =
-    "Coloque a pizza no forno";
-
-  clearInterval(window.clock);
-  window.clock = setInterval(tick, 100);
+ p.innerHTML="";
+ selected.forEach((name,i)=>{
+  const el=document.createElement("span");
+  el.className="ingredient-piece "+ING[name];
+  const angle=i*2.399;
+  const radius=62+(i%3)*18;
+  el.style.left=(98+Math.cos(angle)*radius)+"px";
+  el.style.top=(98+Math.sin(angle)*radius)+"px";
+  p.appendChild(el);
+ });
 }
 
-function renderIngredients() {
-  const box = document.getElementById("ingredients");
-  box.innerHTML = "";
-
-  ingredients.forEach(item => {
-    const button = document.createElement("button");
-    button.className = "secondary";
-    button.textContent = item[1];
-
-    button.onclick = () => {
-      if (!state.baked) {
-        state.selected.push(item[0]);
-        renderPizza();
-      }
-    };
-
-    box.appendChild(button);
-  });
-}
-
-function renderPizza() {
-  const pizza = document.getElementById("pizza");
-  pizza.innerHTML = "";
-
-  state.selected.forEach((id, index) => {
-    const topping = document.createElement("span");
-    const item = ingredients.find(ingredient => ingredient[0] === id);
-
-    topping.className = "topping";
-    if (item) topping.classList.add(item[2]);
-
-    topping.style.left = ((index * 47) % 76 + 10) + "%";
-    topping.style.top = ((index * 71) % 76 + 10) + "%";
-
-    pizza.appendChild(topping);
-  });
-}
-
-function tick() {
-  const elapsed = (Date.now() - state.start) / 1000;
-  const left = Math.max(0, 15 - elapsed);
-
-  document.getElementById("timer").textContent =
-    "Tempo: " + left.toFixed(1) + "s";
-
-  document.getElementById("timebar").style.width =
-    (left / 15 * 100) + "%";
-
-  if (left <= 0) {
-    clearInterval(window.clock);
-    showResult(false, "O cliente esperou demais!");
-  }
-}
-
-function putInOven() {
-  if (!state.selected.length) {
-    alert("Monte a pizza primeiro.");
-    return;
-  }
-
-  state.baked = true;
-
-  document.getElementById("ovenDoor").textContent =
-    "🔥 Pizza assando... espere um pouco!";
-
-  setTimeout(() => {
-    if (state.baked) {
-      document.getElementById("ovenDoor").textContent =
-        "🔥 Pronta! Pode tirar do forno.";
-    }
-  }, 1800);
-}
-
-function takeFromOven() {
-  if (state.baked) {
-    document.getElementById("ovenDoor").textContent =
-      "🍕 Pizza retirada do forno!";
-  }
-}
-
-function deliver() {
-  if (!state.baked) {
-    showResult(false, "A pizza ainda não foi assada!");
-    return;
-  }
-
-  const wanted = [...state.order.need].sort();
-  const got = [...state.selected].sort();
-  const correct = JSON.stringify(wanted) === JSON.stringify(got);
-
-  if (!correct) {
-    showResult(false, "Essa não era a pizza pedida.");
-    return;
-  }
-
-  const elapsed = (Date.now() - state.start) / 1000;
-  const tip = Math.max(5, Math.round(35 - elapsed * 2));
-
-  state.money += tip;
-  save();
-
-  showResult(true, "Pizza entregue! Você ganhou R$ " + tip + " de gorjeta.");
-}
-
-function showResult(ok, message) {
-  clearInterval(window.clock);
-  hideAll();
-
-  document.getElementById("result").classList.remove("hidden");
-  document.getElementById("resultTitle").textContent =
-    ok ? "✨ Pedido perfeito!" : "😅 Pedido encerrado";
-
-  document.getElementById("resultText").textContent = message;
-}
-
-function nextCustomer() {
-  if (state.customer < 4) {
-    state.customer++;
-    loadCustomer();
-    return;
-  }
-
-  if (state.level < 6) {
-    state.level++;
-    state.customer = 0;
-    loadCustomer();
-    return;
-  }
-
-  hideAll();
-  document.getElementById("home").classList.remove("hidden");
-  alert("Você terminou todos os níveis!");
-}
-
-function showShop() {
-  hideAll();
-  document.getElementById("shop").classList.remove("hidden");
-
-  const box = document.getElementById("decorations");
-  box.innerHTML = "";
-
-  decorations.forEach(item => {
-    const id = item[0];
-    const name = item[1];
-    const cost = item[2];
-
-    const button = document.createElement("button");
-    button.className = "decor";
-    button.textContent = owned.includes(id)
-      ? name + " ✓"
-      : name + " — R$ " + cost;
-
-    button.onclick = () => buyDecor(id, name, cost);
-    box.appendChild(button);
-  });
-}
-
-function buyDecor(id, name, cost) {
-  if (owned.includes(id)) return;
-
-  if (state.money < cost) {
-    alert("Você ainda não tem dinheiro suficiente.");
-    return;
-  }
-
-  state.money -= cost;
-  owned.push(id);
-  save();
-  showShop();
-}
-
-function backHome() {
-  hideAll();
-  document.getElementById("home").classList.remove("hidden");
-}
-</script>
-</body>
-</html>
+levels();
+home();
+save();
+renderArcadeButton();
+</script></body></html>
